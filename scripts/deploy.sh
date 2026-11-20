@@ -60,8 +60,9 @@ kubectl apply -f "$PROJECT_DIR/k8s/04-app-api.yaml"
 kubectl apply -f "$PROJECT_DIR/k8s/05-ingress.yaml"
 
 echo "=========================================================="
-echo " [5/5] Waiting for Pods to become Ready..."
+echo " [5/5] Restarting & Waiting for Pods to become Ready..."
 echo "=========================================================="
+kubectl rollout restart deployment/app-about deployment/app-research deployment/app-api -n "$NS"
 kubectl rollout status deployment/app-about -n "$NS" --timeout=120s
 kubectl rollout status deployment/app-research -n "$NS" --timeout=120s
 kubectl rollout status deployment/app-api -n "$NS" --timeout=120s
